@@ -33,7 +33,29 @@ public class AuthController {
         return authService.registerAdminUser(request);
     }
 
+    //registerAdminUser
+    @PostMapping("/registerAdminUser")
+    public ResponseEntity<?> registerCounterUser(@RequestBody RegisterRequest request) {
+        return authService.registerCounterUser(request);
+    }
 
+    //registerAdminUser
+    @PostMapping("/registerAdminUser")
+    public ResponseEntity<?> registerAgentUser(@RequestBody RegisterRequest request) {
+        return authService.registerAgentUser(request);
+    }
+
+    //registerAdminUser
+    @PostMapping("/registerAdminUser")
+    public ResponseEntity<?> registerStaffUser(@RequestBody RegisterRequest request) {
+        return authService.registerStaffUser(request);
+    }
+
+    //registerAdminUser
+    @PostMapping("/registerAdminUser")
+    public ResponseEntity<?> registerOwnerUser(@RequestBody RegisterRequest request) {
+        return authService.registerOwnerUser(request);
+    }
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest req) {

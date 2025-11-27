@@ -39,7 +39,7 @@ public class AuthService {
         }
 
         Role role = req.getRole() != null ? req.getRole() : Role.USER;
-        if (!role.equals("USER")) {
+        if (role==null||role==Role.ADMIN) {
             role = Role.USER;
         }
 
@@ -93,7 +93,7 @@ public class AuthService {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
         }
         Role role = req.getRole() != null ? req.getRole() : Role.ADMIN;
-        if (!role.equals("ADMIN")) {
+        if ((role==null)||(role!=Role.ADMIN)) {
             role = Role.ADMIN;
         }
         User user = new User();
@@ -147,7 +147,7 @@ public class AuthService {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
         }
         Role role = req.getRole() != null ? req.getRole() : Role.COUNTER;
-        if (!role.equals("COUNTER")) {
+        if ((role==null)||(role!=Role.COUNTER)){
             role = Role.COUNTER;
         }
         User user = new User();
@@ -202,8 +202,118 @@ public class AuthService {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
         }
         Role role = req.getRole() != null ? req.getRole() : Role.AGENT;
-        if (!role.equals("AGENT")) {
+        if (role==null||role!=role.AGENT) {
             role = Role.AGENT;
+        }
+
+        User user = new User();
+        user.setUsername(req.getUsername());
+        user.setEmail(req.getEmail());
+        user.setPhone(req.getPhone());
+        user.setPassword(passwordEncoder.encode(req.getPassword()));
+        user.setRole(role);
+        user.setEmailVerified(false);
+        user.setActive(true);
+        user.setCreatedAt(LocalDateTime.now());
+        user.setPhoneVerified(false);
+
+        User savedUser = userRepository.save(user);
+
+        User u = userRepository.findByEmail(req.getEmail());
+
+        // Build claims to include requested fields
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("userid", u.getUserId());
+        claims.put("username", u.getUsername());
+        claims.put("email", u.getEmail());
+        claims.put("phone", u.getPhone());
+        claims.put("role", u.getRole().name());
+        claims.put("isActive", u.isActive());
+
+        String token = jwtHelper.generateToken(claims, u.getEmail());
+        AuthResponse response1 = AuthResponse.builder()
+                .token(token)
+                .userId(u.getUserId())
+                .username(u.getUsername())
+                .email(u.getEmail())
+                .phone(u.getPhone())
+                .role(String.valueOf(u.getRole()))       // ✅ Added here
+                .isActive(u.isActive())
+                .build();
+        return ResponseEntity.status(HttpStatus.CREATED).body(response1);
+    }
+
+    public ResponseEntity<AuthResponse> registerStaffUser(RegisterRequest req) {
+        if (userRepository.existsByEmail(req.getEmail())) {
+            AuthResponse response =
+                    AuthResponse.builder()
+                            .username(req.getUsername())
+                            .email(req.getEmail())
+                            .phone(req.getPhone())
+                            .role(String.valueOf(req.getRole()))       // ✅ Added here
+                            .message("User already exists")
+                            .isActive(true)
+                            .build();
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
+        }
+        Role role = req.getRole() != null ? req.getRole() : Role.STAFF;
+        if (role==null||role!=role.STAFF) {
+            role = Role.STAFF;
+        }
+
+        User user = new User();
+        user.setUsername(req.getUsername());
+        user.setEmail(req.getEmail());
+        user.setPhone(req.getPhone());
+        user.setPassword(passwordEncoder.encode(req.getPassword()));
+        user.setRole(role);
+        user.setEmailVerified(false);
+        user.setActive(true);
+        user.setCreatedAt(LocalDateTime.now());
+        user.setPhoneVerified(false);
+
+        User savedUser = userRepository.save(user);
+
+        User u = userRepository.findByEmail(req.getEmail());
+
+        // Build claims to include requested fields
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("userid", u.getUserId());
+        claims.put("username", u.getUsername());
+        claims.put("email", u.getEmail());
+        claims.put("phone", u.getPhone());
+        claims.put("role", u.getRole().name());
+        claims.put("isActive", u.isActive());
+
+        String token = jwtHelper.generateToken(claims, u.getEmail());
+        AuthResponse response1 = AuthResponse.builder()
+                .token(token)
+                .userId(u.getUserId())
+                .username(u.getUsername())
+                .email(u.getEmail())
+                .phone(u.getPhone())
+                .role(String.valueOf(u.getRole()))       // ✅ Added here
+                .isActive(u.isActive())
+                .build();
+        return ResponseEntity.status(HttpStatus.CREATED).body(response1);
+    }
+
+    public ResponseEntity<AuthResponse> registerOwnerUser(RegisterRequest req) {
+        if (userRepository.existsByEmail(req.getEmail())) {
+            AuthResponse response =
+                    AuthResponse.builder()
+                            .username(req.getUsername())
+                            .email(req.getEmail())
+                            .phone(req.getPhone())
+                            .role(String.valueOf(req.getRole()))       // ✅ Added here
+                            .message("User already exists")
+                            .isActive(true)
+                            .build();
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
+        }
+        Role role = req.getRole() != null ? req.getRole() : Role.OWNER;
+        if (role==null||role!=role.OWNER) {
+            role = Role.OWNER;
         }
 
         User user = new User();
