@@ -56,7 +56,6 @@ public class User {
     private Integer otp;
 
 
-
     @CreatedDate
     private LocalDateTime createdAt;
     @UpdateTimestamp
