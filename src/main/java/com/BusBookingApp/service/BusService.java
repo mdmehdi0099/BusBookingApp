@@ -1,6 +1,7 @@
 package com.BusBookingApp.service;
 
 
+import com.BusBookingApp.dto.BusSearchResponse;
 import com.BusBookingApp.dto.CreateBusRequest;
 import com.BusBookingApp.entity.Bus;
 import com.BusBookingApp.entity.BusRoute;
@@ -11,6 +12,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -53,6 +55,33 @@ public class BusService {
         bus.setRouteStops(busRoutes);
 
         return busRepository.save(bus);
+    }
+
+    public List<BusSearchResponse> searchBuses(String source, String destination, LocalDate journeyDate) {
+
+        List<Bus> buses = busRepository.searchBuses(source, destination);
+
+        return buses.stream().map(bus ->
+                BusSearchResponse.builder()
+                        .busId(bus.getBusId())
+                        .busName(bus.getBusName())
+                        .source(bus.getSource())
+                        .destination(bus.getDestination())
+                        .price(bus.getPrice())
+                        .driverName(bus.getDriver().getUsername())
+                        .driverPhone(bus.getDriver().getPhone())
+                        .routeStops(
+                                bus.getRouteStops().stream()
+                                        .map(rs -> BusSearchResponse.RouteStopInfo.builder()
+                                                .stopName(rs.getStopName())
+                                                .stopOrder(rs.getStopOrder())
+                                                .arrivalTime(rs.getArrivalTime())
+                                                .departureTime(rs.getDepartureTime())
+                                                .build())
+                                        .toList()
+                        )
+                        .build()
+        ).toList();
     }
 
 
