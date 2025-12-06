@@ -31,7 +31,9 @@ public class AuthService {
                     .username(req.getUsername())
                     .email(req.getEmail())
                     .phone(req.getPhone())
-                    .role(String.valueOf(req.getRole()))       // ✅ Added here
+                    .role(String.valueOf(req.getRole()))
+                    .gender(req.getGender())
+                    .age(req.getAge())
                     .message("User already exists")
                     .isActive(true)
                     .build();
@@ -49,6 +51,8 @@ public class AuthService {
         user.setPhone(req.getPhone());
         user.setPassword(passwordEncoder.encode(req.getPassword()));
         user.setRole(role);
+        user.setGender(req.getGender());
+        user.setAge(req.getAge());
         user.setEmailVerified(false);
         user.setActive(true);
         user.setCreatedAt(LocalDateTime.now());
@@ -65,6 +69,8 @@ public class AuthService {
         claims.put("email", u.getEmail());
         claims.put("phone", u.getPhone());
         claims.put("role", u.getRole().name());
+        claims.put("gender",u.getGender());
+        claims.put("age",u.getAge());
         claims.put("isActive", u.isActive());
 
         String token = jwtHelper.generateToken(claims, u.getEmail());
@@ -74,7 +80,9 @@ public class AuthService {
                 .username(u.getUsername())
                 .email(u.getEmail())
                 .phone(u.getPhone())
-                .role(String.valueOf(u.getRole()))       // ✅ Added here
+                .role(String.valueOf(u.getRole()))
+                .gender(u.getGender())
+                .age(u.getAge())// ✅ Added here
                 .isActive(u.isActive())
                 .build();
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
@@ -87,6 +95,8 @@ public class AuthService {
                     .email(req.getEmail())
                     .phone(req.getPhone())
                     .role(String.valueOf(req.getRole()))       // ✅ Added here
+                    .gender(req.getGender())
+                    .age(req.getAge())
                     .message("User already exists")
                     .isActive(true)
                     .build();
@@ -102,6 +112,8 @@ public class AuthService {
         user.setPhone(req.getPhone());
         user.setPassword(passwordEncoder.encode(req.getPassword()));
         user.setRole(role);
+        user.setGender(req.getGender());
+        user.setAge(req.getAge());
         user.setEmailVerified(false);
         user.setActive(true);
         user.setCreatedAt(LocalDateTime.now());
@@ -119,6 +131,8 @@ public class AuthService {
         claims.put("email", u.getEmail());
         claims.put("phone", u.getPhone());
         claims.put("role", u.getRole().name());
+        claims.put("gender",u.getGender());
+        claims.put("age",u.getAge());
         claims.put("isActive", u.isActive());
 
         String token = jwtHelper.generateToken(claims, u.getEmail());
@@ -129,6 +143,8 @@ public class AuthService {
                 .email(u.getEmail())
                 .phone(u.getPhone())
                 .role(String.valueOf(u.getRole()))       // ✅ Added here
+                .gender(req.getGender())
+                .age(req.getAge())
                 .isActive(u.isActive())
                 .build();
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
@@ -141,6 +157,8 @@ public class AuthService {
                     .email(req.getEmail())
                     .phone(req.getPhone())
                     .role(String.valueOf(req.getRole()))       // ✅ Added here
+                    .gender(req.getGender())
+                    .age(req.getAge())
                     .message("User already exists")
                     .isActive(true)
                     .build();
@@ -156,6 +174,8 @@ public class AuthService {
         user.setPhone(req.getPhone());
         user.setPassword(passwordEncoder.encode(req.getPassword()));
         user.setRole(role);
+        user.setGender(req.getGender());
+        user.setAge(req.getAge());
         user.setEmailVerified(false);
         user.setActive(true);
         user.setCreatedAt(LocalDateTime.now());
@@ -173,6 +193,8 @@ public class AuthService {
         claims.put("email", u.getEmail());
         claims.put("phone", u.getPhone());
         claims.put("role", u.getRole().name());
+        claims.put("gender",u.getGender());
+        claims.put("age",u.getAge());
         claims.put("isActive", u.isActive());
 
         String token = jwtHelper.generateToken(claims, u.getEmail());
@@ -183,6 +205,8 @@ public class AuthService {
                 .email(u.getEmail())
                 .phone(u.getPhone())
                 .role(String.valueOf(u.getRole()))       // ✅ Added here
+                .gender(req.getGender())
+                .age(req.getAge())
                 .isActive(u.isActive())
                 .build();
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
@@ -196,6 +220,8 @@ public class AuthService {
                             .email(req.getEmail())
                             .phone(req.getPhone())
                             .role(String.valueOf(req.getRole()))       // ✅ Added here
+                            .gender(req.getGender())
+                            .age(req.getAge())
                             .message("User already exists")
                             .isActive(true)
                             .build();
@@ -212,6 +238,8 @@ public class AuthService {
         user.setPhone(req.getPhone());
         user.setPassword(passwordEncoder.encode(req.getPassword()));
         user.setRole(role);
+        user.setGender(req.getGender());
+        user.setAge(req.getAge());
         user.setEmailVerified(false);
         user.setActive(true);
         user.setCreatedAt(LocalDateTime.now());
@@ -228,6 +256,8 @@ public class AuthService {
         claims.put("email", u.getEmail());
         claims.put("phone", u.getPhone());
         claims.put("role", u.getRole().name());
+        claims.put("gender",u.getGender());
+        claims.put("age",u.getAge());
         claims.put("isActive", u.isActive());
 
         String token = jwtHelper.generateToken(claims, u.getEmail());
@@ -238,6 +268,8 @@ public class AuthService {
                 .email(u.getEmail())
                 .phone(u.getPhone())
                 .role(String.valueOf(u.getRole()))       // ✅ Added here
+                .gender(req.getGender())
+                .age(req.getAge())
                 .isActive(u.isActive())
                 .build();
         return ResponseEntity.status(HttpStatus.CREATED).body(response1);
@@ -251,6 +283,8 @@ public class AuthService {
                             .email(req.getEmail())
                             .phone(req.getPhone())
                             .role(String.valueOf(req.getRole()))       // ✅ Added here
+                            .gender(req.getGender())
+                            .age(req.getAge())
                             .message("User already exists")
                             .isActive(true)
                             .build();
@@ -267,6 +301,8 @@ public class AuthService {
         user.setPhone(req.getPhone());
         user.setPassword(passwordEncoder.encode(req.getPassword()));
         user.setRole(role);
+        user.setGender(req.getGender());
+        user.setAge(req.getAge());
         user.setEmailVerified(false);
         user.setActive(true);
         user.setCreatedAt(LocalDateTime.now());
@@ -283,6 +319,8 @@ public class AuthService {
         claims.put("email", u.getEmail());
         claims.put("phone", u.getPhone());
         claims.put("role", u.getRole().name());
+        claims.put("gender",u.getGender());
+        claims.put("age",u.getAge());
         claims.put("isActive", u.isActive());
 
         String token = jwtHelper.generateToken(claims, u.getEmail());
@@ -293,6 +331,8 @@ public class AuthService {
                 .email(u.getEmail())
                 .phone(u.getPhone())
                 .role(String.valueOf(u.getRole()))       // ✅ Added here
+                .gender(req.getGender())
+                .age(req.getAge())
                 .isActive(u.isActive())
                 .build();
         return ResponseEntity.status(HttpStatus.CREATED).body(response1);
@@ -306,6 +346,8 @@ public class AuthService {
                             .email(req.getEmail())
                             .phone(req.getPhone())
                             .role(String.valueOf(req.getRole()))       // ✅ Added here
+                            .gender(req.getGender())
+                            .age(req.getAge())
                             .message("User already exists")
                             .isActive(true)
                             .build();
@@ -322,6 +364,8 @@ public class AuthService {
         user.setPhone(req.getPhone());
         user.setPassword(passwordEncoder.encode(req.getPassword()));
         user.setRole(role);
+        user.setGender(req.getGender());
+        user.setAge(req.getAge());
         user.setEmailVerified(false);
         user.setActive(true);
         user.setCreatedAt(LocalDateTime.now());
@@ -338,6 +382,8 @@ public class AuthService {
         claims.put("email", u.getEmail());
         claims.put("phone", u.getPhone());
         claims.put("role", u.getRole().name());
+        claims.put("gender",u.getGender());
+        claims.put("age",u.getAge());
         claims.put("isActive", u.isActive());
 
         String token = jwtHelper.generateToken(claims, u.getEmail());
@@ -348,6 +394,8 @@ public class AuthService {
                 .email(u.getEmail())
                 .phone(u.getPhone())
                 .role(String.valueOf(u.getRole()))       // ✅ Added here
+                .gender(req.getGender())
+                .age(req.getAge())
                 .isActive(u.isActive())
                 .build();
         return ResponseEntity.status(HttpStatus.CREATED).body(response1);
@@ -361,6 +409,8 @@ public class AuthService {
                             .email(req.getEmail())
                             .phone(req.getPhone())
                             .role(String.valueOf(req.getRole()))       // ✅ Added here
+                            .gender(req.getGender())
+                            .age(req.getAge())
                             .message("User already exists")
                             .isActive(true)
                             .build();
@@ -377,6 +427,8 @@ public class AuthService {
         user.setPhone(req.getPhone());
         user.setPassword(passwordEncoder.encode(req.getPassword()));
         user.setRole(role);
+        user.setGender(req.getGender());
+        user.setAge(req.getAge());
         user.setEmailVerified(false);
         user.setActive(true);
         user.setCreatedAt(LocalDateTime.now());
@@ -393,6 +445,8 @@ public class AuthService {
         claims.put("email", u.getEmail());
         claims.put("phone", u.getPhone());
         claims.put("role", u.getRole().name());
+        claims.put("gender",u.getGender());
+        claims.put("age",u.getAge());
         claims.put("isActive", u.isActive());
 
         String token = jwtHelper.generateToken(claims, u.getEmail());
@@ -403,6 +457,8 @@ public class AuthService {
                 .email(u.getEmail())
                 .phone(u.getPhone())
                 .role(String.valueOf(u.getRole()))       // ✅ Added here
+                .gender(req.getGender())
+                .age(req.getAge())
                 .isActive(u.isActive())
                 .build();
         return ResponseEntity.status(HttpStatus.CREATED).body(response1);
@@ -419,6 +475,8 @@ public class AuthService {
                     .username(null)
                     .phone(null)
                     .role(null)
+                    .gender(null)
+                    .age(0)
                     .isActive(false)
                     .build();
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
@@ -434,6 +492,8 @@ public class AuthService {
                     .username(null)
                     .phone(null)
                     .role(null)
+                    .gender(null)
+                    .age(0)
                     .isActive(false)
                     .build();
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response1);
@@ -448,6 +508,8 @@ public class AuthService {
                     .username(null)
                     .phone(null)
                     .role(null)
+                    .gender(null)
+                    .age(0)
                     .isActive(false)
                     .build();
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response2);
@@ -462,6 +524,8 @@ public class AuthService {
         claims.put("email", user.getEmail());
         claims.put("phone", user.getPhone());
         claims.put("role", user.getRole().name());
+        claims.put("gender",user.getGender());
+        claims.put("age",user.getAge());
         claims.put("isActive", user.isActive());
 
         String token = jwtHelper.generateToken(claims, user.getEmail());
@@ -472,6 +536,8 @@ public class AuthService {
                 .email(user.getEmail())
                 .phone(user.getPhone())
                 .role(String.valueOf(user.getRole()))       // ✅ Added here
+                .gender(user.getGender())
+                .age(user.getAge())
                 .isActive(user.isActive())
                 .message("Logged in successfully...")
                 .build();
