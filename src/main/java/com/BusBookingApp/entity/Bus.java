@@ -1,9 +1,11 @@
 package com.BusBookingApp.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -16,6 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Table(name="buses")
+@EntityListeners(AuditingEntityListener.class)
 public class Bus {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,9 +34,14 @@ public class Bus {
 
     @OneToMany(mappedBy = "bus",cascade = CascadeType.ALL,orphanRemoval = true)
     @OrderBy("stopOrder ASC")
+    @JsonManagedReference
     private List<BusRoute> routeStops=new ArrayList<>();
-
+    @Column(nullable = false,unique = true)
     private String busName;
+    @Column(nullable = false)
+    private Integer totalSeatCapacity;
+    @Column(nullable = false)
+    private Integer ladiesSeatQuota;
     private String source;
     private String destination;
     private double price;

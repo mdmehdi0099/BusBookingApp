@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
 
+
 @Service
 public class BusService {
     @Autowired
@@ -30,12 +31,16 @@ public class BusService {
                 .orElseThrow(()->new RuntimeException("Owner not found"));
         User driver=userRepository.findByUserId(request.getDriverId())
                 .orElseThrow(()->new RuntimeException("Driver not found"));
-
+        if (request.getLadiesSeatQuota()> request.getTotalSeatCapacity()){
+            throw new RuntimeException("Total Ladies seat cannot be greater than the Total seat Capacity");
+        }
         //Create Bus
         Bus bus=Bus.builder()
                 .owner(owner)
                 .driver(driver)
                 .busName(request.getBusName())
+                .ladiesSeatQuota(request.getLadiesSeatQuota())
+                .totalSeatCapacity(request.getTotalSeatCapacity())
                 .source(request.getSource())
                 .destination(request.getDestination())
                 .price(request.getPrice())
@@ -65,6 +70,8 @@ public class BusService {
                 BusSearchResponse.builder()
                         .busId(bus.getBusId())
                         .busName(bus.getBusName())
+                        .ladiesSeatQuota(bus.getLadiesSeatQuota())
+                        .totalSeatCapacity(bus.getTotalSeatCapacity())
                         .source(bus.getSource())
                         .destination(bus.getDestination())
                         .price(bus.getPrice())

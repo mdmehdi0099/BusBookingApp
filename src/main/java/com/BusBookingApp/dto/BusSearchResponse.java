@@ -11,6 +11,10 @@ import java.util.List;
 public class BusSearchResponse {
     private Long busId;
     private String busName;
+
+    private Integer totalSeatCapacity;
+    private Integer ladiesSeatQuota;
+
     private String source;
     private String destination;
     private double price;

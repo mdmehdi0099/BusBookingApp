@@ -1,6 +1,7 @@
 package com.BusBookingApp.controller;
 
 
+import com.BusBookingApp.dto.BlockSeatRequestDTO;
 import com.BusBookingApp.dto.BusSearchResponse;
 import com.BusBookingApp.dto.CreateBusRequest;
 import com.BusBookingApp.entity.Bus;
@@ -37,6 +38,12 @@ public class AdminController {
         List<BusSearchResponse> buses = busService.searchBuses(source, destination, journeyDate);
 
         return ResponseEntity.ok(buses);
+    }
+
+    @PostMapping("/block")
+    public ResponseEntity<?> blockSeats(@RequestBody BlockSeatRequestDTO request){
+
+
     }
 
 

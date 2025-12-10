@@ -15,6 +15,10 @@ public class CreateBusRequest {
     private Long ownerId;
     private Long driverId;
     private String busName;
+
+    private Integer totalSeatCapacity;
+    private Integer ladiesSeatQuota;
+
     private String source;
     private String destination;
     private double price;
