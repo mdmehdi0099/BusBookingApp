@@ -40,11 +40,11 @@ public class AdminController {
         return ResponseEntity.ok(buses);
     }
 
-    @PostMapping("/block")
-    public ResponseEntity<?> blockSeats(@RequestBody BlockSeatRequestDTO request){
-
-
-    }
+//    @PostMapping("/block")
+//    public ResponseEntity<?> blockSeats(@RequestBody BlockSeatRequestDTO request){
+//
+//
+//    }
 
 
 }
