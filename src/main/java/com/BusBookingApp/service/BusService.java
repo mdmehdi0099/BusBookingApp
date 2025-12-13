@@ -10,6 +10,10 @@ import com.BusBookingApp.repo.BusRepository;
 import com.BusBookingApp.repo.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -62,11 +66,12 @@ public class BusService {
         return busRepository.save(bus);
     }
 
-    public List<BusSearchResponse> searchBuses(String source, String destination, LocalDate journeyDate) {
+    public Page<BusSearchResponse> searchBuses(String source, String destination, LocalDate journeyDate, int page, int size) {
+        Pageable pageable= PageRequest.of(page,size, Sort.by("busName").ascending());
 
-        List<Bus> buses = busRepository.searchBuses(source, destination);
+        Page<Bus> buses = busRepository.searchBuses(source, destination, pageable);
 
-        return buses.stream().map(bus ->
+        return buses.map(bus ->
                 BusSearchResponse.builder()
                         .busId(bus.getBusId())
                         .busName(bus.getBusName())
@@ -88,7 +93,7 @@ public class BusService {
                                         .toList()
                         )
                         .build()
-        ).toList();
+        );
     }
 
 

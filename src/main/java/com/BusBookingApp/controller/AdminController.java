@@ -7,6 +7,7 @@ import com.BusBookingApp.dto.CreateBusRequest;
 import com.BusBookingApp.entity.Bus;
 import com.BusBookingApp.service.BusService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -32,19 +33,21 @@ public class AdminController {
     public ResponseEntity<?> searchBuses(
             @RequestParam String source,
             @RequestParam String destination,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate journeyDate
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate journeyDate,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "1") int size
     ) {
 
-        List<BusSearchResponse> buses = busService.searchBuses(source, destination, journeyDate);
+            Page<BusSearchResponse> buses = busService.searchBuses(source, destination, journeyDate, page, size);
 
         return ResponseEntity.ok(buses);
     }
 
-//    @PostMapping("/block")
-//    public ResponseEntity<?> blockSeats(@RequestBody BlockSeatRequestDTO request){
-//
-//
-//    }
+    @PostMapping("/seats/block")
+    public ResponseEntity<?> blockSeats(@RequestBody BlockSeatRequestDTO request){
+
+
+    }
 
 
 }

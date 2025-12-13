@@ -28,6 +28,8 @@ public class Seat {
     private SeatStatus status;
 
     private LocalDateTime blockedAt;
+    private String blockedBy;
+    private LocalDateTime blockExpiredAt;
 
 
 }
